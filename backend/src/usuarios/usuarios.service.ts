@@ -33,6 +33,10 @@ export class UsuariosService {
     }
   }
 
+  async findByEmail(email: string) {
+    return await this.usuarioModel.findOne({email})
+  }
+
   findAll() {
     return `This action returns all usuarios`;
   }
