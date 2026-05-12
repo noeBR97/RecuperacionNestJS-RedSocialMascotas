@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 // import { AuthModule } from './auth/auth.module';
 // import { MascotasModule } from './mascotas/mascotas.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,8 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 
     // AuthModule,
     UsuariosModule,
+
+    AuthModule,
     // MascotasModule,
   ],
 })
