@@ -25,7 +25,7 @@ export class UsuariosService {
       })
 
       return await nuevoUsuario.save()
-    } catch(error) {
+    } catch(error: any) {
       if (error.code === 11000) {
         throw new BadRequestException('El email o el nombre de usuario ya existen')
       }
