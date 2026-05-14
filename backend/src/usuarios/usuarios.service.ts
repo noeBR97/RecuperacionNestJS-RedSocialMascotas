@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -37,19 +37,66 @@ export class UsuariosService {
     return await this.usuarioModel.findOne({email})
   }
 
-  findAll() {
-    return `This action returns all usuarios`;
+  async findAll() {
+    try {
+      return await this.usuarioModel.find().select('-clave'); //eliminamos la clave en la respuesta por seguridad
+    } catch (error) {
+      throw new InternalServerErrorException('Error al obtener los usuarios');
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(id: string, currentUser: any) {
+    if(currentUser.rol !== 'admin' && currentUser.id !== id) {
+        throw new ForbiddenException('No tienes permiso para ver este perfil')
+    }
+
+    try {
+      const usuario = await this.usuarioModel.findById(id).select('-clave');
+
+        if (!usuario) {
+          throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+        }
+
+        return usuario;
+    } catch (error) {
+      throw new InternalServerErrorException('Error al obtener el usuario');
+    }
+    
   }
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+  async update(id: string, updateUsuarioDto: UpdateUsuarioDto, currentUser: any) {
+    if(currentUser.rol !== 'admin' && currentUser.id !== id) {
+        throw new ForbiddenException('No tienes permiso para editar este perfil')
+    }
+
+    try {
+      const usuarioActualizado = await this.usuarioModel.findByIdAndUpdate(
+        id,
+        updateUsuarioDto,
+        { new: true, runValidators: true}
+      ).select('-clave')
+
+      if(!usuarioActualizado) {
+        throw new NotFoundException(`Usuario con ID ${id} no encontrado`)
+      }
+
+      return usuarioActualizado
+    } catch(error) {
+      throw new InternalServerErrorException('Error al actualizar el usuario');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  async remove(id: string) {
+    try {
+      const usuarioEliminado = await this.usuarioModel.findByIdAndDelete(id);
+
+      if (!usuarioEliminado) {
+        throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+      }
+
+      return { message: `Usuario con ID ${id} eliminado correctamente` };
+    } catch(error) {
+      throw new InternalServerErrorException('Error al eliminar el usuario');
+    }
   }
 }
