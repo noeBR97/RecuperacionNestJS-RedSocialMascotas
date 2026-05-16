@@ -22,4 +22,8 @@ export class CreateMascotaDto {
     @IsString({ each: true })
     @IsOptional()
     fotos?: string[];
+
+    @IsString()
+    @IsOptional()
+    duenoID: string
 }
