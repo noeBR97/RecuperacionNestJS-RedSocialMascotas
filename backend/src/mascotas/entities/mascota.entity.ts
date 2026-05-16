@@ -1,4 +1,4 @@
-import { Document, Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 
 @Schema({ collection: 'mascotas', timestamps: true})
@@ -18,8 +18,8 @@ export class Mascota extends Document {
     @Prop([String])
     fotos: string[];
 
-    @Prop({ default: 0 })
-    likes: number;
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }], default: [] })
+    likes: string[];
 
     @Prop({ type: Types.ObjectId, ref: 'Usuario', required: true})
     dueno: Types.ObjectId
