@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-// import { AuthModule } from './auth/auth.module';
-// import { MascotasModule } from './mascotas/mascotas.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { AuthModule } from './auth/auth.module';
 import { MascotasModule } from './mascotas/mascotas.module';
@@ -21,16 +19,9 @@ import { MascotasModule } from './mascotas/mascotas.module';
         uri: configService.get<string>('MONGO_URI'),
       }),
     }),
-    
     UsuariosModule,
-
-    // AuthModule,
-    UsuariosModule,
-
     AuthModule,
-
     MascotasModule,
-    // MascotasModule,
   ],
 })
 export class AppModule {}
