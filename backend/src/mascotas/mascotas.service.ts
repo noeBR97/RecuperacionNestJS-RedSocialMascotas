@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Mascota } from './entities/mascota.entity';
 import { CreateMascotaDto } from './dto/create-mascota.dto';
 import { UpdateMascotaDto } from './dto/update-mascota.dto';
+import { CreateComentarioDto } from './dto/create-comentario.dto';
 
 @Injectable()
 export class MascotasService {
@@ -75,6 +76,62 @@ export class MascotasService {
       return { message: 'Mascota eliminada correctamente'}
     } catch(error) {
       throw new InternalServerErrorException('Error al eliminar la mascota')
+    }
+  }
+
+  async createComentario(mascotaID: string, createComentarioDto: CreateComentarioDto, usuarioID: string) {
+    try {
+      const comentarioMascota = await this.mascotaModel.findByIdAndUpdate(
+        mascotaID,
+        { $push: {
+          comentarios: {
+            usuarioID: usuarioID,
+            texto: createComentarioDto.texto,
+            fecha: new Date()
+          }
+        }},
+        { new: true }
+      ).populate('comentarios.usuarioID', 'nombre')
+
+      if(!comentarioMascota) {
+        throw new NotFoundException('Mascota no encontrada')
+      }
+
+      return comentarioMascota.comentarios
+    } catch(error) {
+      throw new InternalServerErrorException('Error al crear el comentario')
+    }
+  }
+
+  async removeComentario(mascotaID: string, comentarioID: string) {
+    try {
+      const mascota = await this.mascotaModel.findByIdAndUpdate(
+        mascotaID,
+        { $pull: { comentarios: { _id: comentarioID }}},
+        { new: true }
+      )
+
+      if (!mascota) {
+        throw new NotFoundException('Mascota no encontrada')
+      }
+
+      return { message: 'Comentario eliminado correctamente', mascota}
+    } catch (error) {
+      throw new InternalServerErrorException('Error al eliminar el comentario')
+    }
+  }
+
+  async getComentarios(mascotaID: string) {
+    try {
+      const mascota = await this.mascotaModel.findById(mascotaID).select('comentarios').populate('comentarios.usuarioID', 'nombre email')
+
+      if (!mascota) {
+        throw new NotFoundException('Mascota no encontrada')
+      }
+
+      return mascota.comentarios
+    } catch (error) {
+      throw new InternalServerErrorException('Error al obtener los comentarios')
     }
   }
 }

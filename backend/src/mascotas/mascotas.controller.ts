@@ -5,6 +5,7 @@ import { UpdateMascotaDto } from './dto/update-mascota.dto';
 import { JwtAuthGuard } from 'src/auth/jwt.strategy/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { Roles } from 'src/auth/roles/roles.decorator';
+import { CreateComentarioDto } from './dto/create-comentario.dto';
 
 @Controller('mascotas')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -39,5 +40,30 @@ export class MascotasController {
   @Roles('admin')
   remove(@Param('id') id: string) {
     return this.mascotasService.remove(id);
+  }
+
+  @Post(':id/comentarios')
+  @Roles('admin', 'usuario')
+  addComentario(
+    @Param('id') id: string,
+    @Body() createComentarioDto: CreateComentarioDto,
+    @Req() req: any
+  ) {
+    return this.mascotasService.createComentario(id, createComentarioDto, req.user.id)
+  }
+
+  @Get(':id/comentarios')
+  @Roles('admin')
+  findComentarios(@Param('id') id: string) {
+    return this.mascotasService.getComentarios(id)
+  }
+
+  @Delete(':mascotaID/comentarios/:comentarioID')
+  @Roles('admin')
+  removeComentario(
+    @Param('mascotaID') mascotaID: string,
+    @Param('comentarioID') comentarioID: string
+  ) {
+    return this.mascotasService.removeComentario(mascotaID, comentarioID);
   }
 }
