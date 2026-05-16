@@ -154,4 +154,21 @@ export class MascotasService {
       { new: true }
     )
   }
+
+  async getRecuentoLikesMascota(mascotaID: string) {
+    try {
+      const mascota = await this.mascotaModel.findById(mascotaID)
+
+      if(!mascota) {
+        throw new NotFoundException('Mascota no encontrada')
+      }
+
+      return {
+        mascotaID: mascotaID,
+        totalLikes: mascota.likes ? mascota.likes.length : 0
+      }
+    } catch(error) {
+      throw new InternalServerErrorException('Error al obtener los likes')
+    }
+  }
 }

@@ -72,4 +72,10 @@ export class MascotasController {
   async darLike(@Param('id') id: string, @Req() req: any) {
     return this.mascotasService.darLike(id, req.user.id)
   }
+
+  @Get(':id/likes/count')
+  @Roles('admin', 'usuario')
+  async getRecuentoLikes(@Param('id') id: string) {
+    return this.mascotasService.getRecuentoLikesMascota(id)
+  }
 }
