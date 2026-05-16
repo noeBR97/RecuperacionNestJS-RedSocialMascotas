@@ -10,6 +10,13 @@ import { RolesGuard } from 'src/auth/roles/roles.guard';
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
+
+  @Get('perfil')
+  @Roles('admin', 'usuario')
+  async getPerfil(@Req() req: any) {
+    return this.usuariosService.findMiPerfil(req.user.id)
+  }
+
   @Get()
   @Roles('admin')
   findAll() {
@@ -23,7 +30,7 @@ export class UsuariosController {
   }
 
   @Put(':id')
-  @Roles('admin')
+  @Roles('admin', 'usuario')
   update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto, @Req() req:any) {
     return this.usuariosService.update(id, updateUsuarioDto, req.user);
   }

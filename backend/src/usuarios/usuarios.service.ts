@@ -65,11 +65,22 @@ export class UsuariosService {
   }
 
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto, currentUser: any) {
+    //solo el admin o el propio usuario pueden acceder
     if(currentUser.rol !== 'admin' && currentUser.id !== id) {
         throw new ForbiddenException('No tienes permiso para editar este perfil')
     }
 
+    //proteccion de rol. Si no es admin, eliminamos cualquier intento de cambio de rol
+    if(currentUser.rol !== 'admin' && updateUsuarioDto.rol) {
+      delete updateUsuarioDto.rol
+    }
+
     try {
+      //si el usuario quiere cambiar la clave la encriptamos
+      if(updateUsuarioDto.clave) {
+        updateUsuarioDto.clave = await bcrypt.hash(updateUsuarioDto.clave, 10)
+      }
+
       const usuarioActualizado = await this.usuarioModel.findByIdAndUpdate(
         id,
         updateUsuarioDto,
@@ -97,6 +108,20 @@ export class UsuariosService {
       return { message: `Usuario con ID ${id} eliminado correctamente` };
     } catch(error) {
       throw new InternalServerErrorException('Error al eliminar el usuario');
+    }
+  }
+
+  async findMiPerfil(id: string) {
+    try {
+      const usuario = await this.usuarioModel.findById(id).select('-clave')
+
+      if(!usuario) {
+        throw new NotFoundException('Perfil no encontrado')
+      }
+
+      return usuario
+    } catch(error) {
+      throw new InternalServerErrorException('Error al obtener el perfil')
     }
   }
 }
