@@ -66,4 +66,10 @@ export class MascotasController {
   ) {
     return this.mascotasService.removeComentario(mascotaID, comentarioID);
   }
+
+  @Put(':id/like')
+  @Roles('admin', 'usuario')
+  async darLike(@Param('id') id: string, @Req() req: any) {
+    return this.mascotasService.darLike(id, req.user.id)
+  }
 }

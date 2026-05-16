@@ -134,4 +134,24 @@ export class MascotasService {
       throw new InternalServerErrorException('Error al obtener los comentarios')
     }
   }
+
+  async darLike(mascotaID: string, usuarioID: string) {
+    const mascota = await this.mascotaModel.findById(mascotaID)
+
+    if(!mascota) {
+      throw new NotFoundException('Mascota no encontrada')
+    }
+
+    const likesActuales = mascota.likes || []
+
+    if(likesActuales.includes(usuarioID)) {
+      throw new BadRequestException('Ya has dado like a esta mascota')
+    }
+
+    return await this.mascotaModel.findByIdAndUpdate(
+      mascotaID,
+      { $addToSet: { likes: usuarioID }}, //mejor que $push. garantiza que el id no se guarde dos veces por error
+      { new: true }
+    )
+  }
 }
