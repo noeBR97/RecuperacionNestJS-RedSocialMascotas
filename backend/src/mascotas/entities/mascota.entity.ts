@@ -9,7 +9,7 @@ export class Mascota extends Document {
     @Prop({ type: Number })
     edad: number;
 
-    @Prop({ required: true, enum: ['canino', 'felino', 'conejo', 'otro'] })
+    @Prop({ required: true, enum: ['Perro', 'Gato', 'Conejo', 'Reptil', 'Ave', 'Otro'] })
     especie: string;
 
     @Prop()
