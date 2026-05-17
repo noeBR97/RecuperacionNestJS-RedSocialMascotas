@@ -19,6 +19,12 @@ export class MascotasController {
     return this.mascotasService.create(createMascotaDto, req.user);
   }
 
+  @Get('ranking/global')
+  @Roles('admin', 'usuario')
+  async getRanking() {
+    return this.mascotasService.getRankingGlobal()
+  }
+
   @Get()
   @Roles('admin')
   findAll() {

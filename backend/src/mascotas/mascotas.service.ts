@@ -225,4 +225,34 @@ export class MascotasService {
       throw new InternalServerErrorException('Error en el proceso de subida');
     }
   }
+
+  async getRankingGlobal() {
+    try {
+      return await this.mascotaModel.aggregate([
+        {
+          $addFields: {
+            totalLikes: { size: {$ifNull: [ "$likes", []]}} //campo temporal con el tamaño del array de likes
+          }
+        },
+        {
+          $sort: { totalLikes: -1 } //orden de mayor a menor numero de likes
+        },
+        {
+          $limit: 10 //mostramos top 10
+        },
+        {
+          //los datos que queremos mostrar
+          $project: {
+            nombre: 1,
+            especie: 1,
+            raza: 1,
+            edad: 1,
+            totalLikes: 1
+          }
+        }
+      ])
+    } catch(error) {
+      throw new InternalServerErrorException('Error al generar el ranking')
+    }
+  }
 }
