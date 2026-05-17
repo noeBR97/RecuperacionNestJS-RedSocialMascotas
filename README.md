@@ -7,45 +7,33 @@ Aplicación completa para una red social de mascotas, con backend en NestJS, fro
 ### **Backend (NestJS)**
 
 * API REST modular con controladores, servicios y esquemas.
-
 * Autenticación mediante JWT.
-
 * Roles de usuario: administrador y usuario normal.
-
 * Persistencia en MongoDB usando Mongoose.
-
 * Validaciones con DTOs y class-validator.
-
 * Manejo de errores centralizado.
 
 ### **Frontend (Vite + Vanilla JS)**
 
 * Pantallas de registro e inicio de sesión.
-
 * Listado de mascotas.
-
 * Gestión de mascotas propias.
-
 * Sistema de likes.
-
 * Ranking global de mascotas.
+* Escribir comentarios a las mascotas.
 
 ### **Base de Datos (MongoDB)**
 
-* Colección users.
-
-* Colección pets.
-
-* Colección likes o historial de likes.
+* Colección usuarios.
+* Colección mascotas.
 
 ## **⚙️ Instalación y Puesta en Marcha**
+
 ### **Requisitos previos**
 
 * Node.js 18+
-
 * MongoDB local o en la nube
-
-* npm o pnpm
+* npm
 
 ### **1. Clonar el repositorio**
 
@@ -62,11 +50,17 @@ git clone https://github.com/noeBR97/RecuperacionNestJS-RedSocialMascotas.git
 Crear archivo ``.env``:
 
 ```bash
-PORT=4000
-MONGO_URI=mongodb://localhost:27017/pet_social
-JWT_SECRET=supersecreto
-JWT_EXPIRES_IN=1d
+MONGO_URI=mongodb://localhost:27017/nombre-db
+JWT_SECRET=tu_palabra_secreta_super_segura
+PORT=3000
+CLOUDINARY_NAME=tu_cloud_name
+CLOUDINARY_API_KEY=tu_api_key
+CLOUDINARY_API_SECRET=tu_api_secret
 ```
+
+Iniciar seeder:
+
+``npm run seed``
 
 Iniciar servidor:
 
@@ -75,73 +69,51 @@ Iniciar servidor:
 ### **3. Frontend (Vite)**
 
 ```bash
-cd ../frontend
+cd frontend
 npm install
 npm run dev
 ```
 
 ## **🗂️ Modelado de Datos**
 
-### **Usuario (``User``)**
-
-* id (ObjectId)
-
-* username
-
-* email
-
-* password (hash)
-
-* role (``admin`` | ``user``)
-
-### **Mascota (``Pet``)**
-
-* id (ObjectId)
-
-* owner (ref a User)
-
-* name
-
-* species
-
-* age
-
-* description (opcional)
-
-* photoUrl (opcional)
-
-* likesCount
-
-* (Opcional) likes (array de usuarios o historial)
-
-### **Historial de Likes (``Like``)**
+### **Usuario**
 
 * id
+* nombre
+* apellido1
+* apellido2
+* edad
+* nombreUsuario
+* email
+* clave (hash)
+* rol (``admin`` | ``usuario``)
 
-* user (ref)
+### **Mascota**
 
-* pet (ref)
-
-* createdAt
+* id
+* nombre
+* especie (enum: Perro, Gato, Conejo, Reptil, Ave, Otro)
+* raza
+* edad
+* fotos
+* likes (array)
+* dueño (ref a usuario)
 
 ## **👤 Gestión de Usuarios y Roles**
 
 ### **Registro e inicio de sesión**
 
-* Registro de usuario con rol por defecto ``user``.
-
+* Registro de usuario con rol por defecto ``usuario``.
 * Login que devuelve un JWT.
 
 ### **Roles**
 
-* **Administrador:** puede gestionar cualquier mascota.
-
-* **Usuario normal:** solo puede gestionar sus propias mascotas.
+* **Administrador:** puede gestionar cualquier mascota, comentario o usuario.
+* **Usuario normal:** solo puede gestionar sus propias mascotas, dar likes y escribir comentarios.
 
 ### **Protección de rutas**
 
 * Guard de JWT para validar token.
-
 * Guard de Roles para restringir operaciones.
 
 ## **🐶 Mascotas y Likes**
@@ -149,40 +121,29 @@ npm run dev
 ### **Mascotas**
 
 * Crear mascota.
-
 * Editar y eliminar mascotas propias.
-
 * Administrador puede gestionar todas.
 
 ### **Likes**
 
 * Un usuario puede dar like a mascotas de otros.
-
 * No puede dar más de un like a la misma mascota.
-
-* ``likesCount`` se actualiza automáticamente.
+* No puede dar like a tus propias mascotas.
 
 ## **🏆 Ranking de Mascotas**
 
 * Ranking global ordenado por número de likes.
-
-* (Opcional) Filtro por especie: ``?species=perro``.
 
 ## **🛡️ Autenticación y Seguridad**
 
 ## **Flujo**
 
 1. Usuario se registra.
-
-1. Inicia sesión y recibe JWT.
-
-2. El frontend almacena el token.
-
-3. Cada petición protegida incluye:
-
-4. Authorization: Bearer <token>
-
-5. NestJS valida token y rol.
+2. Inicia sesión y recibe JWT.
+3. El frontend almacena el token.
+4. Cada petición protegida incluye:
+5. Authorization: Bearer <token>
+6. NestJS valida token y rol.
 
 ## **🧩 Estructura del Backend**
 
@@ -190,48 +151,27 @@ npm run dev
 backend/
 ├── src/
 │   ├── auth/
-│   ├── users/
-│   ├── pets/
-│   ├── common/
+│   ├── cloudinary/
+│   ├── mascotas/
+│   ├── seed/
+│   ├── usuarios/
 │   └── app.module.ts
 └── main.ts
-```
-
-## **🖥️ Estructura del Frontend**
-
-```bash
-frontend/
-├── src/
-│   ├── pages/
-│   ├── components/
-│   ├── services/
-│   └── main.js
-└── index.html
 ```
 
 ## **⭐ Extras**
 
 * Fotos o URLs de imagen para mascotas.
-
-* Filtro de ranking por especie.
-
-* Historial de likes.
-
 * Sistema de comentarios.
 
 ## **🔄 Flujo Completo**
 
 1. Usuario se registra e inicia sesión.
-
-1. Crea una mascota.
-
-2. Otros usuarios ven la mascota y dan likes.
-
-3. El sistema evita likes duplicados.
-
-4. Se consulta el ranking global.
-
-5. Administrador puede gestionar cualquier mascota.
+2. Crea una mascota.
+3. Otros usuarios ven la mascota y dan likes.
+4. El sistema evita likes duplicados.
+5. Se consulta el ranking global.
+6. Administrador puede gestionar cualquier mascota.
 
 ## **📝 Notas Finales**
 
