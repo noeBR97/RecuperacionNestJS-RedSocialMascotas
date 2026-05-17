@@ -16,8 +16,10 @@ export class AuthService {
             throw new UnauthorizedException('Credenciales inválidas')
         }
 
+        const usuarioID = (usuario as any)._id.toString()
+
         const payload = {
-            sub: usuario.id,
+            sub: usuarioID,
             email: usuario.email,
             rol: usuario.rol
         }
@@ -25,6 +27,7 @@ export class AuthService {
         return {
             token: this.jwtService.sign(payload),
             usuario: {
+                id: usuarioID,
                 nombre: usuario.nombre,
                 email: usuario.email,
                 rol: usuario.rol

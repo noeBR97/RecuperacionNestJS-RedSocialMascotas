@@ -25,6 +25,18 @@ export class MascotasController {
     return this.mascotasService.getRankingGlobal()
   }
 
+  @Get('feed')
+  @Roles('admin', 'usuario')
+  findFeed(@Req() req: any) {
+    return this.mascotasService.findFeed(req.user);
+  }
+
+  @Get('mis-mascotas')
+  @Roles('admin', 'usuario')
+  findMine(@Req() req: any) {
+    return this.mascotasService.findMine(req.user);
+  }
+
   @Get()
   @Roles('admin')
   findAll() {
@@ -60,7 +72,7 @@ export class MascotasController {
   }
 
   @Get(':id/comentarios')
-  @Roles('admin')
+  @Roles('admin', 'usuario')
   findComentarios(@Param('id') id: string) {
     return this.mascotasService.getComentarios(id)
   }

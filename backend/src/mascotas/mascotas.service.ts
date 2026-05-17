@@ -39,6 +39,36 @@ export class MascotasService {
     }
   }
 
+  async findFeed(currentUser: any) {
+    try {
+      return await this.mascotaModel
+        .find({
+          $expr: {
+            $ne: [{ $toString: '$dueno' }, currentUser.id]
+          }
+        })
+        .populate('dueno', '-clave')
+        .sort({ createdAt: -1 });
+    } catch(error) {
+      throw new InternalServerErrorException('Error al obtener las mascotas de otros usuarios')
+    }
+  }
+
+  async findMine(currentUser: any) {
+    try {
+      return await this.mascotaModel
+        .find({
+          $expr: {
+            $eq: [{ $toString: '$dueno' }, currentUser.id]
+          }
+        })
+        .populate('dueno', '-clave')
+        .sort({ createdAt: -1 });
+    } catch(error) {
+      throw new InternalServerErrorException('Error al obtener tus mascotas')
+    }
+  }
+
   async findOne(id: string) {
     try {
       const mascota = await this.mascotaModel.findById(id).populate('dueno', '-clave')
@@ -168,6 +198,10 @@ export class MascotasService {
       throw new NotFoundException('Mascota no encontrada')
     }
 
+    if(mascota.dueno.toString() === usuarioID) {
+      throw new BadRequestException('No puedes dar like a tu propia mascota')
+    }
+
     const likesActuales = mascota.likes || []
 
     if(likesActuales.includes(usuarioID)) {
@@ -247,6 +281,8 @@ export class MascotasService {
             especie: 1,
             raza: 1,
             edad: 1,
+            fotos: 1,
+            dueno: 1,
             totalLikes: 1
           }
         }
