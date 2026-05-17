@@ -436,7 +436,7 @@ function userModalTemplate(user) {
 
 function petFormTemplate(pet, allowOwnerSelection, formId) {
   const ownerSelector = allowOwnerSelection
-    ? `<label>Dueno
+    ? `<label>Dueño
         <select name="duenoID" required>
           ${state.users.map((user) => `<option value="${getId(user)}" ${getOwnerId(pet) === getId(user) ? 'selected' : ''}>${escapeHtml(user.email)}</option>`).join('')}
         </select>
@@ -505,8 +505,8 @@ function petCardTemplate(pet) {
       <div class="pet-body">
         <div>
           <h3>${escapeHtml(pet.nombre)}</h3>
-          <p>${escapeHtml(pet.especie)}${pet.raza ? ` · ${escapeHtml(pet.raza)}` : ''}${pet.edad ? ` · ${pet.edad} anos` : ''}</p>
-          ${owner ? `<small>Dueno: ${escapeHtml(owner)}</small>` : ''}
+          <p>${escapeHtml(pet.especie)}${pet.raza ? ` · ${escapeHtml(pet.raza)}` : ''}${pet.edad ? ` · ${pet.edad} años` : ''}</p>
+          ${owner ? `<small>Dueño: ${escapeHtml(owner)}</small>` : ''}
         </div>
         <div class="pet-actions">
           ${!isMine ? `<button class="ghost-button" data-action="like" data-id="${id}" type="button">${likes} likes</button>` : `<span class="like-label">${likes} likes</span>`}
