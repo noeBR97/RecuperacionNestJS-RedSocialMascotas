@@ -1,0 +1,8 @@
+admin@admin.com
+clave123
+
+user@app.com
+clave123
+
+user2@app.com
+clave123

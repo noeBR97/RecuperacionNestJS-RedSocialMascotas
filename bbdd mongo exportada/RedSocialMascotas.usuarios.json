@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "6a09e55a28c75a6ada8965f4"
+  },
+  "nombre": "Administrador",
+  "apellido1": "de Prueba",
+  "nombreUsuario": "administrador01",
+  "email": "admin@admin.com",
+  "clave": "$2b$10$HLYeL64s9z38Rs2LeLEIHu5WbXYTRFMPGuuRaC.H6gtDQ6SVghYW2",
+  "rol": "admin",
+  "createdAt": {
+    "$date": "2026-05-17T15:57:14.491Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T15:57:14.491Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a09e55a28c75a6ada8965f5"
+  },
+  "nombre": "Usuario de Prueba",
+  "apellido1": "Estándar",
+  "nombreUsuario": "userEstándar01",
+  "email": "user@app.com",
+  "clave": "$2b$10$HLYeL64s9z38Rs2LeLEIHu5WbXYTRFMPGuuRaC.H6gtDQ6SVghYW2",
+  "rol": "usuario",
+  "createdAt": {
+    "$date": "2026-05-17T15:57:14.491Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T15:57:14.491Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a09e55a28c75a6ada8965f6"
+  },
+  "nombre": "Usuario de Prueba 2",
+  "apellido1": "Estándar",
+  "nombreUsuario": "userEstándar02",
+  "email": "user2@app.com",
+  "clave": "$2b$10$HLYeL64s9z38Rs2LeLEIHu5WbXYTRFMPGuuRaC.H6gtDQ6SVghYW2",
+  "rol": "usuario",
+  "createdAt": {
+    "$date": "2026-05-17T15:57:14.492Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T15:57:14.492Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a09edf3f6194df2a05d8efc"
+  },
+  "nombre": "Noelia",
+  "apellido1": "Barrionuevo",
+  "apellido2": "Romero",
+  "edad": 28,
+  "nombreUsuario": "noebr97",
+  "email": "noe.br97@gmail.com",
+  "clave": "$2b$10$K8G73gsBflPlUfM/0jAbbO8OE.RutXBIOdH/u3lzulUTLh5fzpwh.",
+  "rol": "usuario",
+  "createdAt": {
+    "$date": "2026-05-17T16:33:55.603Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T16:33:55.603Z"
+  }
+}]
