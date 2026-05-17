@@ -5,12 +5,14 @@ import { Mascota } from './entities/mascota.entity';
 import { CreateMascotaDto } from './dto/create-mascota.dto';
 import { UpdateMascotaDto } from './dto/update-mascota.dto';
 import { CreateComentarioDto } from './dto/create-comentario.dto';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class MascotasService {
   constructor(
       @InjectModel(Mascota.name)
-      private readonly mascotaModel: Model<Mascota>
+      private readonly mascotaModel: Model<Mascota>,
+      private readonly cloudinaryService: CloudinaryService
   ){}
 
   async create(createMascotaDto: CreateMascotaDto, usuario: any) {
@@ -193,6 +195,34 @@ export class MascotasService {
       }
     } catch(error) {
       throw new InternalServerErrorException('Error al obtener los likes')
+    }
+  }
+
+  async subirFotoMascota(id: string, file: Express.Multer.File, currentUser: any) {
+    const mascota = await this.mascotaModel.findById(id)
+
+    if(!mascota) {
+      throw new NotFoundException('Mascota no encontrada')
+    }
+
+    if(currentUser.rol !== 'admin' && mascota.dueno.toString() !== currentUser.id) {
+      throw new ForbiddenException('No tienes permiso para editar esta mascota')
+    }
+
+    try {
+      const result = await this.cloudinaryService.uploadImage(file)
+
+      return await this.mascotaModel.findByIdAndUpdate(
+        id,
+        { $push: { fotos: result.secure_url }},
+        { new: true }
+      )
+    } catch(error) {
+      if (error instanceof ForbiddenException || error instanceof NotFoundException) {
+        throw error;
+      }
+      
+      throw new InternalServerErrorException('Error en el proceso de subida');
     }
   }
 }

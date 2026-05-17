@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Put, UseInterceptors, UploadedFile, BadRequestException } from '@nestjs/common';
 import { MascotasService } from './mascotas.service';
 import { CreateMascotaDto } from './dto/create-mascota.dto';
 import { UpdateMascotaDto } from './dto/update-mascota.dto';
@@ -6,6 +6,7 @@ import { JwtAuthGuard } from 'src/auth/jwt.strategy/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { Roles } from 'src/auth/roles/roles.decorator';
 import { CreateComentarioDto } from './dto/create-comentario.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('mascotas')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -77,5 +78,16 @@ export class MascotasController {
   @Roles('admin', 'usuario')
   async getRecuentoLikes(@Param('id') id: string) {
     return this.mascotasService.getRecuentoLikesMascota(id)
+  }
+
+  @Put(':id/upload')
+  @Roles('admin', 'usuario')
+  @UseInterceptors(FileInterceptor('file'))
+  async subirImagen(@Param('id') id: string, @UploadedFile() file: Express.Multer.File, @Req() req: any) {
+    if(!file) {
+      throw new BadRequestException('No se ha seleccionado ninguna imagen')
+    }
+
+    return this.mascotasService.subirFotoMascota(id, file, req.user)
   }
 }
