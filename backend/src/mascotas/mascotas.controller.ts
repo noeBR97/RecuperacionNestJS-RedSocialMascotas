@@ -37,9 +37,9 @@ export class MascotasController {
   }
 
   @Delete(':id')
-  @Roles('admin')
-  remove(@Param('id') id: string) {
-    return this.mascotasService.remove(id);
+  @Roles('admin', 'usuario')
+  remove(@Param('id') id: string, @Req() req: any) {
+    return this.mascotasService.remove(id, req.user);
   }
 
   @Post(':id/comentarios')

@@ -74,21 +74,31 @@ export class MascotasService {
       if(error instanceof NotFoundException || error instanceof ForbiddenException) {
         throw error
       }
-      
+
       throw new InternalServerErrorException('Error al actualizar la mascota')
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string, currentUser: any) {
     try {
-      const mascotaEliminada = await this.mascotaModel.findByIdAndDelete(id)
+      const mascota = await this.mascotaModel.findById(id)
 
-      if(!mascotaEliminada) {
+      if(!mascota) {
         throw new NotFoundException(`Mascota con ID ${id} no enocntrada`)
       }
 
+      if(currentUser.rol !== 'admin' && mascota.dueno.toString() !== currentUser.id) {
+        throw new ForbiddenException('No tienes permiso para eliminar esta mascota')
+      }
+
+      await this.mascotaModel.findByIdAndDelete(id)
+
       return { message: 'Mascota eliminada correctamente'}
     } catch(error) {
+      if(error instanceof NotFoundException || error instanceof ForbiddenException) {
+        throw error
+      }
+
       throw new InternalServerErrorException('Error al eliminar la mascota')
     }
   }
