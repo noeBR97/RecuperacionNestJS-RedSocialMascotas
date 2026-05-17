@@ -231,7 +231,7 @@ export class MascotasService {
       return await this.mascotaModel.aggregate([
         {
           $addFields: {
-            totalLikes: { size: {$ifNull: [ "$likes", []]}} //campo temporal con el tamaño del array de likes
+            totalLikes: { $size: {$ifNull: [ "$likes", []]}} //campo temporal con el tamaño del array de likes
           }
         },
         {
