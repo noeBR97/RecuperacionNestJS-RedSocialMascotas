@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, InternalServerErrorException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Mascota } from './entities/mascota.entity';
@@ -51,16 +51,30 @@ export class MascotasService {
     }
   }
 
-  async update(id: string, updateMascotaDto: UpdateMascotaDto) {
+  async update(id: string, updateMascotaDto: UpdateMascotaDto, currentUser: any) {
     try {
-      const mascotaActualizada = await this.mascotaModel.findByIdAndUpdate(id, updateMascotaDto, { new: true, runValidators: true})
+      const mascota = await this.mascotaModel.findById(id)
 
-      if(!mascotaActualizada) {
+      if(!mascota) {
         throw new NotFoundException(`Mascota con ID ${id} no enocntrada`)
       }
 
+      if(currentUser.rol !== 'admin' && mascota.dueno.toString() !== currentUser.id) {
+        throw new ForbiddenException('No tienes permiso para editar esta mascota')
+      }
+
+      const mascotaActualizada = await this.mascotaModel.findByIdAndUpdate(
+        id, 
+        updateMascotaDto, 
+        { new: true, runValidators: true}
+      )
+
       return mascotaActualizada
     } catch(error) {
+      if(error instanceof NotFoundException || error instanceof ForbiddenException) {
+        throw error
+      }
+      
       throw new InternalServerErrorException('Error al actualizar la mascota')
     }
   }

@@ -31,9 +31,9 @@ export class MascotasController {
   }
 
   @Put(':id')
-  @Roles('admin')
-  update(@Param('id') id: string, @Body() updateMascotaDto: UpdateMascotaDto) {
-    return this.mascotasService.update(id, updateMascotaDto);
+  @Roles('admin', 'usuario')
+  update(@Param('id') id: string, @Body() updateMascotaDto: UpdateMascotaDto, @Req() req: any) {
+    return this.mascotasService.update(id, updateMascotaDto, req.user);
   }
 
   @Delete(':id')
