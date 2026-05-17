@@ -1,0 +1,312 @@
+[{
+  "_id": {
+    "$oid": "6a09e55a28c75a6ada8965f7"
+  },
+  "nombre": "Rex",
+  "edad": 4,
+  "especie": "Perro",
+  "raza": "Pastor Alemán",
+  "fotos": [
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040694/rdos25ihju4rdxt8eidn.jpg"
+  ],
+  "likes": [
+    {
+      "$oid": "6a09e55a28c75a6ada8965f6"
+    },
+    {
+      "$oid": "6a09edf3f6194df2a05d8efc"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f5"
+    }
+  ],
+  "dueno": {
+    "$oid": "6a09e55a28c75a6ada8965f4"
+  },
+  "comentarios": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-05-17T15:57:14.498Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T18:05:39.028Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a09e55a28c75a6ada8965f8"
+  },
+  "nombre": "Bonnie",
+  "edad": 5,
+  "especie": "Gato",
+  "raza": "Calicó",
+  "fotos": [
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779039587/pey4hbmw5rx80j3ztfwg.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779039603/ou3yvs8svjnaut4x9hph.jpg"
+  ],
+  "likes": [
+    {
+      "$oid": "6a09e55a28c75a6ada8965f4"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f6"
+    },
+    {
+      "$oid": "6a09edf3f6194df2a05d8efc"
+    }
+  ],
+  "dueno": {
+    "$oid": "6a09e55a28c75a6ada8965f5"
+  },
+  "comentarios": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-05-17T15:57:14.499Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T17:40:11.360Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a09e55a28c75a6ada8965f9"
+  },
+  "nombre": "Arthas",
+  "edad": 5,
+  "especie": "Gato",
+  "raza": "Siamés",
+  "fotos": [
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040398/hjjkqmxh8ep5dpvzqdny.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040405/ranhwizkrfcebcm0gxfa.jpg"
+  ],
+  "likes": [
+    {
+      "$oid": "6a09edf3f6194df2a05d8efc"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f4"
+    }
+  ],
+  "dueno": {
+    "$oid": "6a09e55a28c75a6ada8965f6"
+  },
+  "comentarios": [
+    {
+      "usuarioID": {
+        "$oid": "6a09e55a28c75a6ada8965f5"
+      },
+      "texto": "que ojos mas bonitos 😍🐾",
+      "fecha": {
+        "$date": "2026-05-17T18:05:35.893Z"
+      },
+      "_id": {
+        "$oid": "6a0a036f1a0f5aac44055824"
+      }
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-05-17T15:57:14.499Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T18:05:35.893Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a09eec6f6194df2a05d8efd"
+  },
+  "nombre": "Navi",
+  "edad": 4,
+  "especie": "Perro",
+  "raza": "Mezcla de Border Collie",
+  "fotos": [
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779035839/w8apqirpycftzmg7kzyi.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779036526/k5q0scqwhk25tupqbfq6.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040776/gsbyohhrh55y5a3220ez.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040805/cf4vp2vfpfftjyajfho0.jpg"
+  ],
+  "likes": [
+    {
+      "$oid": "6a09edf3f6194df2a05d8efc"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f4"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f5"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f6"
+    }
+  ],
+  "dueno": "6a09edf3f6194df2a05d8efc",
+  "comentarios": [
+    {
+      "usuarioID": {
+        "$oid": "6a09e55a28c75a6ada8965f4"
+      },
+      "texto": "que bonitaaaa",
+      "fecha": {
+        "$date": "2026-05-17T17:27:15.352Z"
+      },
+      "_id": {
+        "$oid": "6a09fa73bbb4308ad64e64ec"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-05-17T16:37:26.204Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T18:13:36.097Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09fe4107eb1c8dbb37a2cf"
+  },
+  "nombre": "Nana",
+  "edad": 6,
+  "especie": "Gato",
+  "raza": "Tricolor",
+  "fotos": [
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779039802/j3ujwqx3uzsxuspltf82.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040121/rwjametcsqisenje7zqx.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040129/aazjh1dwdd6g4w2d1ngu.jpg"
+  ],
+  "likes": [
+    {
+      "$oid": "6a09edf3f6194df2a05d8efc"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f6"
+    }
+  ],
+  "dueno": "6a09e55a28c75a6ada8965f5",
+  "comentarios": [],
+  "createdAt": {
+    "$date": "2026-05-17T17:43:29.543Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T18:06:43.139Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0a00081a0f5aac440557c5"
+  },
+  "nombre": "Zoe",
+  "edad": 5,
+  "especie": "Gato",
+  "raza": "Mestiza",
+  "fotos": [
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040257/ununwgstmi5wu45zkolk.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040273/jdmwr1uyqsxckjlwipkt.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040281/bztjsdgqprq1f01g46cu.jpg"
+  ],
+  "likes": [
+    {
+      "$oid": "6a09edf3f6194df2a05d8efc"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f6"
+    }
+  ],
+  "dueno": "6a09e55a28c75a6ada8965f5",
+  "comentarios": [
+    {
+      "usuarioID": {
+        "$oid": "6a09edf3f6194df2a05d8efc"
+      },
+      "texto": "que adorable!! ❤️",
+      "fecha": {
+        "$date": "2026-05-17T18:04:28.399Z"
+      },
+      "_id": {
+        "$oid": "6a0a032c1a0f5aac44055805"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-05-17T17:51:04.103Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T18:06:35.660Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0a00e71a0f5aac440557d2"
+  },
+  "nombre": "Guppy",
+  "edad": 4,
+  "especie": "Gato",
+  "raza": "Mestizo",
+  "fotos": [
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040480/p0ttinohanummnkm76ws.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040494/czrwetunbdx3ipiibtzd.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040503/ydappasxvrbog4kdjvjv.jpg"
+  ],
+  "likes": [
+    {
+      "$oid": "6a09edf3f6194df2a05d8efc"
+    },
+    {
+      "$oid": "6a09e55a28c75a6ada8965f5"
+    }
+  ],
+  "dueno": "6a09e55a28c75a6ada8965f6",
+  "comentarios": [
+    {
+      "usuarioID": {
+        "$oid": "6a09edf3f6194df2a05d8efc"
+      },
+      "texto": "que ojazos mas bonitos tiene 😍😍",
+      "fecha": {
+        "$date": "2026-05-17T18:03:56.127Z"
+      },
+      "_id": {
+        "$oid": "6a0a030c1a0f5aac44055802"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-05-17T17:54:47.170Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T18:05:42.208Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0a01431a0f5aac440557d9"
+  },
+  "nombre": "Vega",
+  "edad": 4,
+  "especie": "Gato",
+  "raza": "Mestiza",
+  "fotos": [
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040572/mikkawhuudlr9zez5wir.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040581/z1b6pqtl1uguhuncuz2l.jpg",
+    "https://res.cloudinary.com/dgkvtjyup/image/upload/v1779040591/cb7u0a78bootp5zjlpjq.jpg"
+  ],
+  "likes": [
+    {
+      "$oid": "6a09e55a28c75a6ada8965f5"
+    }
+  ],
+  "dueno": "6a09e55a28c75a6ada8965f6",
+  "comentarios": [],
+  "createdAt": {
+    "$date": "2026-05-17T17:56:19.090Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-17T18:05:12.935Z"
+  },
+  "__v": 0
+}]
